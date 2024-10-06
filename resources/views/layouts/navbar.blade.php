@@ -1,40 +1,30 @@
-<nav class="navbar px-12 py-6 flex justify-between">
-    <div class="brand-wrapper flex justify-start items-center">
-        <img src="{{ url('storage/img/EVZ-LOGO-AK-XS.png') }}" alt="Logo Brand" class="brand-img w-10">
-        <a href="{{ url('') }}" class="brand-link mx-2 font-semibold text-2xl"> Evariz Digital Solusindo</a>
-    </div>
-    <div class="navbar-menu">
-        <ul class="nav-menu flex justify-evenly">
-            <li class="nav-item">
-                <a href="{{ url('') }}" class="nav-link px-3 py-2 font-semibold mx-1">
-                    Beranda
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('/vps') }}" class="nav-link px-3 py-2 font-semibold mx-1">
-                    VPS
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('/about') }}" class="nav-link px-3 py-2 font-semibold mx-1">
-                    About
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('/contact') }}" class="nav-link px-3 py-2 font-semibold mx-1">
-                    Contact Us
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('/login') }}" class="nav-link px-3 py-2 font-semibold mx-1 border-solid border rounded-lg border-[#0099ff]">
-                    Login
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('/register') }}" class="nav-link px-3 py-2 font-semibold mx-1 rounded-lg bg-[#0099ff] text-white">
-                    Register
-                </a>
-            </li>
-        </ul>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container d-flex justify-content-between">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="mb-2 text-dark navbar-nav ms-auto mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ url('') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ url('vps') }}">VPS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ url('about') }}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ url('contact') }}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark btn btn-outline-primary" href="{{ url('login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="text-white nav-link btn btn-primary" href="{{ url('register') }}">Register</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>

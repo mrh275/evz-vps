@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="mb-2 text-dark navbar-nav ms-auto mb-lg-0">
+            <ul class="mb-2 navbar-nav ms-auto mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="{{ url('') }}">Home</a>
                 </li>
@@ -19,10 +19,10 @@
                     <a class="nav-link text-dark" href="{{ url('contact') }}">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark btn btn-outline-primary" href="{{ url('login') }}">Login</a>
+                    <a class="btn btn-outline-primary me-1" href="{{ url('login') }}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="text-white nav-link btn btn-primary" href="{{ url('register') }}">Register</a>
+                    <a class="btn btn-primary ms-1" href="{{ url('register') }}">Register</a>
                 </li>
             </ul>
         </div>

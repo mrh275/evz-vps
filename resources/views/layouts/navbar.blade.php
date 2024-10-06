@@ -13,7 +13,7 @@
                     <a class="nav-link text-dark" href="{{ url('vps') }}">VPS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="{{ url('about') }}">About</a>
+                    <a class="nav-link text-dark" href="{{ url('faq') }}">FAQ</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="{{ url('contact') }}">Contact</a>

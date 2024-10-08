@@ -13,7 +13,10 @@
 
 <body>
     <script src="assets/static/js/initTheme.js"></script>
-    @yield('content')
+    <div class="app" id="app">
+        @include('layouts.components.sidebar')
+        @yield('content')
+    </div>
     <script src="{{ url('assets/static/js/components/dark.js') }}"></script>
     <script src="{{ url('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ url('assets/compiled/js/app.js') }}"></script>

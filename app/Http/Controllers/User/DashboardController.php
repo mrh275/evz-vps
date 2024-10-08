@@ -11,6 +11,7 @@ class DashboardController extends Controller
     {
         $data = [
             'title' => 'Dashboard',
+            'activeMenu' => 'dashboard',
         ];
 
         return view('user.dashboard', $data);

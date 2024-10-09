@@ -8,7 +8,7 @@
     <title>{{ $title }}</title>
 
     {{-- Section Invoices --}}
-    @if ($activeMenu == 'invoices')
+    @if ($activeMenu == 'services' || $activeMenu == 'domains' || $activeMenu == 'invoices' || $activeMenu == 'tickets')
         <link rel="stylesheet" href="{{ url('assets/extensions/simple-datatables/style.css') }}">
         <link rel="stylesheet" href="{{ url('assets/compiled/css/table-datatable.css') }}">
     @endif
@@ -32,7 +32,7 @@
     <script src="{{ url('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ url('assets/compiled/js/app.js') }}"></script>
     <script src="{{ url('assets/static/js/pages/dashboard.js') }}"></script>
-    @if ($activeMenu == 'invoices')
+    @if ($activeMenu == 'services' || $activeMenu == 'domains' || $activeMenu == 'invoices' || $activeMenu == 'tickets')
         <script src="{{ url('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
         <script src="{{ url('assets/static/js/pages/simple-datatables.js') }}"></script>
     @endif

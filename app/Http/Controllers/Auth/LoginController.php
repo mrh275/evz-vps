@@ -14,4 +14,10 @@ class LoginController extends Controller
         ];
         return view('auth.login', $data);
     }
+
+    public function logout()
+    {
+        auth()->logout();
+        return redirect()->route('portal.index');
+    }
 }

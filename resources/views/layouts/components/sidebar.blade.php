@@ -57,7 +57,7 @@
                 <li class="sidebar-item {{ $activeMenu == 'invoices' ? 'active' : '' }}">
                     <a href="{{ url('user/invoices') }}" class='sidebar-link'>
                         <i class="bi bi-receipt"></i>
-                        <span>Invoices</span>
+                        <span>Transactions</span>
                     </a>
                 </li>
                 <li class="sidebar-item {{ $activeMenu == 'tickets' ? 'active' : '' }}">

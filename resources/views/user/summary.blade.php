@@ -14,7 +14,8 @@
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">User</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Orders</li>
+                                <li class="breadcrumb-item">Orders</li>
+                                <li class="breadcrumb-item active" aria-current="page">Summary</li>
                             </ol>
                         </nav>
                     </div>
@@ -48,22 +49,38 @@
                                         <p>Choose your payment method</p>
                                         <div class="row">
                                             <div class="col-12 d-flex justify-content-evenly">
-                                                <button class="p-1 border card">
-                                                    <img src="{{ url('assets/img/bank/BRIVA.png') }}" alt="BRIVA" width="90px">
-                                                    <span class="small">BRI Virtual Account</span>
-                                                </button>
-                                                <button class="p-1 border card">
-                                                    <img src="{{ url('assets/img/bank/MANDIRIVA.png') }}" alt="MANDIRIVA" width="90px">
-                                                    <span class="small">Mandiri Virtual Account</span>
-                                                </button>
-                                                <button class="p-1 border card">
-                                                    <img src="{{ url('assets/img/bank/BNIVA.png') }}" alt="BNIVA" width="90px">
-                                                    <span class="small">BNI Virtual Account</span>
-                                                </button>
-                                                <button class="p-1 border card">
-                                                    <img src="{{ url('assets/img/bank/BCAVA.png') }}" alt="BCAVA" width="90px">
-                                                    <span class="small">BCA Virtual Account</span>
-                                                </button>
+                                                <form action="{{ url('user/order/payment') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="va_code" value="BRIVA">
+                                                    <button type="submit" class="p-1 border card">
+                                                        <img src="{{ url('assets/img/bank/BRIVA.png') }}" alt="BRIVA" width="90px">
+                                                        <span class="small">BRI Virtual Account</span>
+                                                    </button>
+                                                </form>
+                                                <form action="{{ url('user/order/payment') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="va_code" value="MANDIRIVA">
+                                                    <button type="submit" class="p-1 border card">
+                                                        <img src="{{ url('assets/img/bank/MANDIRIVA.png') }}" alt="MANDIRIVA" width="90px">
+                                                        <span class="small">Mandiri Virtual Account</span>
+                                                    </button>
+                                                </form>
+                                                <form action="{{ url('user/order/payment') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="va_code" value="BNIVA">
+                                                    <button type="submit" class="p-1 border card">
+                                                        <img src="{{ url('assets/img/bank/BNIVA.png') }}" alt="BNIVA" width="90px">
+                                                        <span class="small">BNI Virtual Account</span>
+                                                    </button>
+                                                </form>
+                                                <form action="{{ url('user/order/payment') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="va_code" value="BCAVA">
+                                                    <button type="submit" class="p-1 border card">
+                                                        <img src="{{ url('assets/img/bank/BCAVA.png') }}" alt="BCAVA" width="90px">
+                                                        <span class="small">BCA Virtual Account</span>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

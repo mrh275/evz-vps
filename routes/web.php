@@ -9,6 +9,7 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\DomainsController;
 use App\Http\Controllers\User\ServicesController;
 use App\Http\Controllers\User\TicketsController;
+use App\Http\Controllers\User\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,5 @@ Route::get('user/services', [ServicesController::class, 'index'])->name('user.se
 Route::get('user/domains', [DomainsController::class, 'index'])->name('user.domains');
 Route::get('user/invoices', [InvoiceController::class, 'index'])->name('user.invoices');
 Route::get('user/tickets', [TicketsController::class, 'index'])->name('user.tickets');
+Route::get('user/summary', [TransactionController::class, 'index']);
 Route::get('user/logout', [LoginController::class, 'logout'])->name('user.logout');

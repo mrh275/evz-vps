@@ -95,10 +95,10 @@
                                 <div class="my-2 row">
                                     <div class="col-12 d-flex align-items-center justify-content-end">
                                         <span class="mx-2">Download your Invoice here</span>
-                                        <button class="btn btn-primary icon icon-left">
+                                        <a href="{{ url('user/order/invoice') }}" class="btn btn-primary icon icon-left">
                                             <i class="fas fa-file-pdf"></i>
                                             Invoice
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -184,4 +184,5 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection

@@ -14,7 +14,7 @@ class TransactionController extends Controller
             'activeMenu' => '-'
         ];
 
-        return view('user.summary', $data);
+        return view('user.transactions.summary', $data);
     }
 
     public function payment(Request $request)
@@ -25,7 +25,7 @@ class TransactionController extends Controller
             'va_code' => $request->va_code,
         ];
 
-        return view('user.payment', $data);
+        return view('user.transactions.payment', $data);
     }
 
     public function paymentDetails($param)
@@ -38,5 +38,16 @@ class TransactionController extends Controller
 
         dd($data);
         return view('user.payment', $data);
+    }
+
+    public function invoice()
+    {
+        $data = [
+            'title' => 'Invoice',
+            'activeMenu' => '-',
+            'paymentStatus' => false
+        ];
+
+        return view('user.transactions.print-invoice', $data);
     }
 }

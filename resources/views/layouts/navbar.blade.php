@@ -1,6 +1,8 @@
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="py-3 navbar fixed-top navbar-expand-lg bg-light">
     <div class="container d-flex justify-content-between">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="{{ url('') }}">
+            <img src="{{ url('assets/img/EVZ-LOGO.png') }}" alt="Brand Logo" class="brand-logo" style="width: 128px; height: auto">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

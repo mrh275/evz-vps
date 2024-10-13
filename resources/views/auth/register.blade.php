@@ -15,27 +15,28 @@
                     <h1 class="auth-title">Sign Up</h1>
                     <p class="mb-5 auth-subtitle">Silahkan mendaftar terlebih dahulu!</p>
 
-                    <form action="{{ url('auth/register') }}" method="POST">
+                    <form action="{{ url('register/attempt') }}" method="POST">
+                        @csrf
                         <div class="mb-4 form-group position-relative has-icon-left">
-                            <input type="text" class="form-control form-control-xl" placeholder="Email">
+                            <input type="email" name="email" class="form-control form-control-xl" placeholder="Email">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
                         </div>
                         <div class="mb-4 form-group position-relative has-icon-left">
-                            <input type="text" class="form-control form-control-xl" placeholder="Username">
+                            <input type="text" name="name" class="form-control form-control-xl" placeholder="Your name">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
                         <div class="mb-4 form-group position-relative has-icon-left">
-                            <input type="password" class="form-control form-control-xl" placeholder="Password">
+                            <input type="password" name="password" class="form-control form-control-xl" placeholder="Password">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
                         <div class="mb-4 form-group position-relative has-icon-left">
-                            <input type="password" class="form-control form-control-xl" placeholder="Confirm Password">
+                            <input type="password" name="confirm_password" class="form-control form-control-xl" placeholder="Confirm Password">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
@@ -57,3 +58,20 @@
 
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        if ({{ session()->has('success') }} === 1) {
+            Swal.fire({
+                title: 'Registrasi berhasil!',
+                text: "{{ session()->get('message') }}",
+                icon: 'success',
+                confirmButtonText: 'Tutup'
+            }).then((confirm) => {
+                if (confirm.isConfirmed) {
+                    window.location.href = "{{ url('login') }}"
+                }
+            })
+        }
+    </script>
+@endpush

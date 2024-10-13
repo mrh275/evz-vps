@@ -54,7 +54,7 @@
 
                         <div class="pt-5 row">
                             <div class="col-12 d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary btn-lg" onclick="vps1()">Order Now</button>
+                                <button type="button" class="btn btn-primary btn-lg" id="vps1">Order Now</button>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
 
                         <div class="pt-5 row">
                             <div class="col-12 d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary btn-lg" onclick="vps2()">Order Now</button>
+                                <button type="button" class="btn btn-primary btn-lg" id="vps2">Order Now</button>
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
 
                         <div class="pt-5 row">
                             <div class="col-12 d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary btn-lg" onclick="vps3()">Order Now</button>
+                                <button type="button" class="btn btn-primary btn-lg" id="vps3">Order Now</button>
                             </div>
                         </div>
                     </div>
@@ -138,21 +138,34 @@
 
 @push('scripts')
     <script>
-        function vps1() {
+        const vps1 = document.getElementById('vps1');
+        const vps2 = document.getElementById('vps2');
+        const vps3 = document.getElementById('vps3');
+
+        vps1.addEventListener('click', function() {
             sessionStorage.setItem('vps', 1);
-            if ({{ session()->has('user') }}) {
-                window.location.href = "{{ route('order') }}";
+            if ("{{ session()->has('user') }}" == "") {
+                window.location.href = "{{ route('auth.login') }}";
             } else {
-                window.location.href = "{{ route('login') }}";
+                window.location.href = "{{ route('user.order') }}";
             }
-        }
+        })
 
-        function vps2() {
+        vps2.addEventListener('click', function() {
             sessionStorage.setItem('vps', 2);
-        }
-
-        function vps3() {
+            if ("{{ session()->has('user') }}" == "") {
+                window.location.href = "{{ route('auth.login') }}";
+            } else {
+                window.location.href = "{{ route('user.order') }}";
+            }
+        })
+        vps3.addEventListener('click', function() {
             sessionStorage.setItem('vps', 3);
-        }
+            if ("{{ session()->has('user') }}" == "") {
+                window.location.href = "{{ route('auth.login') }}";
+            } else {
+                window.location.href = "{{ route('user.order') }}";
+            }
+        })
     </script>
 @endpush

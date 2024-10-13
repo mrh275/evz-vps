@@ -24,14 +24,17 @@ use App\Http\Controllers\User\TransactionController;
 
 Route::get('/', [PortalController::class, 'index'])->name('portal.index');
 Route::get('/login', [LoginController::class, 'index'])->name('auth.login');
+Route::post('auth/login/attempt', [LoginController::class, 'login'])->name('auth.login.attempt');
 Route::get('/register', [RegisterController::class, 'index'])->name('auth.register');
-Route::get('/user/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
-Route::get('user/services', [ServicesController::class, 'index'])->name('user.services');
-Route::get('user/domains', [DomainsController::class, 'index'])->name('user.domains');
-Route::get('user/invoices', [InvoiceController::class, 'index'])->name('user.invoices');
-Route::get('user/tickets', [TicketsController::class, 'index'])->name('user.tickets');
-Route::get('user/order/summary', [TransactionController::class, 'index']);
-Route::post('user/order/payment', [TransactionController::class, 'payment']);
-// Route::get('user/order/payment', [TransactionController::class, 'paymentDetails'])->name('user.payment');
-Route::get('user/order/invoice', [TransactionController::class, 'invoice'])->name('user.invoice');
-Route::get('user/logout', [LoginController::class, 'logout'])->name('user.logout');
+Route::middleware(['auth'])->group(function () {
+    Route::get('user/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
+    Route::get('user/services', [ServicesController::class, 'index'])->name('user.services');
+    Route::get('user/domains', [DomainsController::class, 'index'])->name('user.domains');
+    Route::get('user/invoices', [InvoiceController::class, 'index'])->name('user.invoices');
+    Route::get('user/tickets', [TicketsController::class, 'index'])->name('user.tickets');
+    Route::get('user/order/summary', [TransactionController::class, 'index']);
+    Route::post('user/order/payment', [TransactionController::class, 'payment']);
+    // Route::get('user/order/payment', [TransactionController::class, 'paymentDetails'])->name('user.payment');
+    Route::get('user/order/invoice', [TransactionController::class, 'invoice'])->name('user.invoice');
+    Route::get('user/logout', [LoginController::class, 'logout'])->name('user.logout');
+});

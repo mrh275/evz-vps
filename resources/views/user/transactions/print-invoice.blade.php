@@ -25,7 +25,7 @@
         <div class="page-content">
             <div class="my-3 row">
                 <div class="col-12">
-                    <button class="btn btn-primary icon icon-left">
+                    <button class="btn btn-primary icon icon-left" onclick="cetakInvoice()">
                         <i class="fas fa-file-pdf"></i>
                         Download Invoice
                     </button>
@@ -33,7 +33,7 @@
             </div>
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
-                    <div class="card" id="invoice" style="width: 794px; height: 1123px;">
+                    <div class="card" id="invoice" style="width: 794px; height: auto;">
                         <div class="card-body">
                             <div class="paid-status position-relative">
                                 @if ($paymentStatus)
@@ -139,3 +139,31 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        function cetakInvoice() {
+            let element = document.getElementById('invoice');
+            document.documentElement.scrollTop = 0;
+
+            let option = {
+                margin: [0, 0, 0, 0],
+                filename: 'invoice.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 1
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'A4',
+                    orientation: 'portrait'
+                }
+            };
+
+            html2pdf().set(option).from(element).save();
+        }
+    </script>
+@endpush

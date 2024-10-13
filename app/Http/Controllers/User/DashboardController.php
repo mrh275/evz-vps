@@ -9,9 +9,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $user = session('user');
+
         $data = [
             'title' => 'Dashboard',
             'activeMenu' => 'dashboard',
+            'user' => $user
         ];
 
         return view('user.dashboard', $data);

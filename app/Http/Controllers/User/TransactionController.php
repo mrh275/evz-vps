@@ -9,9 +9,11 @@ class TransactionController extends Controller
 {
     public function index()
     {
+        $user = session('user');
         $data = [
             'title' => 'Ringkasan Order',
-            'activeMenu' => '-'
+            'activeMenu' => '-',
+            'user' => $user
         ];
 
         return view('user.transactions.summary', $data);
@@ -19,10 +21,12 @@ class TransactionController extends Controller
 
     public function payment(Request $request)
     {
+        $user = session('user');
         $data = [
             'title' => 'Pembayaran',
             'activeMenu' => '-',
             'va_code' => $request->va_code,
+            'user' => $user
         ];
 
         return view('user.transactions.payment', $data);
@@ -30,10 +34,12 @@ class TransactionController extends Controller
 
     public function paymentDetails($param)
     {
+        $user = session('user');
         $data = [
             'title' => 'Detail Pembayaran',
             'activeMenu' => '-',
             'va_code' => $param->va_code,
+            'user' => $user
         ];
 
         dd($data);
@@ -42,10 +48,12 @@ class TransactionController extends Controller
 
     public function invoice()
     {
+        $user = session('user');
         $data = [
             'title' => 'Invoice',
             'activeMenu' => '-',
-            'paymentStatus' => false
+            'paymentStatus' => false,
+            'user' => $user
         ];
 
         return view('user.transactions.print-invoice', $data);

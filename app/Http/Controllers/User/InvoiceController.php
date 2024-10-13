@@ -9,9 +9,11 @@ class InvoiceController extends Controller
 {
     public function index()
     {
+        $user = session('user');
         $data = [
             'title' => 'Invoices',
-            'activeMenu' => 'invoices'
+            'activeMenu' => 'invoices',
+            'user' => $user
         ];
 
         return view('user.invoices', $data);

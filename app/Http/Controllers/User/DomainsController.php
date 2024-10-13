@@ -9,9 +9,11 @@ class DomainsController extends Controller
 {
     public function index()
     {
+        $user = session('user');
         $data = [
             'title' => 'Domains',
             'activeMenu' => 'domains',
+            'user' => $user
         ];
 
         return view('user.domains', $data);

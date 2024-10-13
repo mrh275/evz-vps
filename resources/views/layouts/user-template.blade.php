@@ -32,10 +32,14 @@
     <script src="{{ url('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ url('assets/compiled/js/app.js') }}"></script>
     <script src="{{ url('assets/static/js/pages/dashboard.js') }}"></script>
-    @if ($activeMenu == 'services' || $activeMenu == 'domains' || $activeMenu == 'invoices' || $activeMenu == 'tickets')
+    @if ($activeMenu == 'services' || $activeMenu == 'domains' || $activeMenu == 'tickets')
         <script src="{{ url('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
         <script src="{{ url('assets/static/js/pages/simple-datatables.js') }}"></script>
     @endif
+    @if ($title == 'Invoice')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    @endif
+    @stack('scripts')
 </body>
 
 </html>

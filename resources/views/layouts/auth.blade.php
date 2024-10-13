@@ -16,6 +16,8 @@
 <body>
     <script src="assets/static/js/initTheme.js"></script>
     @yield('content')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @stack('scripts')
 </body>
 
 </html>

@@ -96,7 +96,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="text-bold-500">
+                                                    <td class="text-dark fw-semibold">
                                                         VPS Power Max 3 Unmanaged <br>
                                                         Region: Bogor <br>
                                                         CPU: 6 core <br>
@@ -104,29 +104,83 @@
                                                         Storage: SSD 80 GB <br>
                                                         Operating System: ubuntu-22.04-x86_64
                                                     </td>
-                                                    <td class="text-end">215,000 IDR</td>
+                                                    <td class="text-end text-dark">215,000 IDR</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-bold-500">
+                                                    <td class="text-dark fw-semibold">
                                                         Renewal domain sman1rawamerta.sch.id
                                                     </td>
-                                                    <td class="text-end">215,000 IDR</td>
+                                                    <td class="text-end text-dark">215,000 IDR</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-bold-500">
+                                                    <td class="text-dark fw-semibold">
                                                         Renewal SSl Comodo PositiveSSL
                                                     </td>
-                                                    <td class="text-end">215,000 IDR</td>
+                                                    <td class="text-end text-dark">215,000 IDR</td>
                                                 </tr>
                                             </tbody>
-                                            <tfoot style="background-color: #efefef" class="fw-bold text-dark text-end">
+                                            <tfoot style="background-color: #efefef" class="fw-bold text-end">
                                                 <tr>
-                                                    <td>
+                                                    <td class="text-dark">
                                                         Total Amount (Tax's Included)
                                                     </td>
-                                                    <td>6,590,000 IDR</td>
+                                                    <td class="text-dark">
+                                                        6,590,000 IDR
+                                                    </td>
                                                 </tr>
                                             </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="mt-3 row">
+                                <div class="col-1"></div>
+                                <div class="col-10">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0 overflow-hidden align-top border-2 border-dark table-bordered border-secondary">
+                                            <tbody class="overflow-hidden">
+                                                <tr class="overflow-hidden">
+                                                    <td class="text-dark small fw-semibold col-6">
+                                                        <span class="italic">
+                                                            Payment only accepted via bank transfer to the following virtual account:
+                                                        </span>
+                                                        <br>
+                                                        <br>
+                                                        <span class="text-dark">
+                                                            Bank: BCA <br>
+                                                            Account Number: 1234567890 <br>
+                                                            Account Name: Evariz Digital Media
+                                                        </span>
+                                                    </td>
+                                                    <td class="overflow-hidden align-top text-dark fw-bold col-6">
+                                                        <div class="position-relative row small border-1 border-bottom border-dark" style="top: -35px">
+                                                            <div class="col-6">
+                                                                Sub Amount
+                                                            </div>
+                                                            <div class="col-6 text-end">
+                                                                5,399,554 IDR
+                                                            </div>
+                                                        </div>
+                                                        <div class="position-relative row small border-1 border-bottom border-dark" style="top: -35px">
+                                                            <div class="col-6">
+                                                                VAT (11%)
+                                                            </div>
+                                                            <div class="col-6 text-end">
+                                                                590,446 IDR
+                                                            </div>
+                                                        </div>
+                                                        <div class="position-relative row small border-1 border-bottom border-dark" style="top: -35px">
+                                                            <div class="col-6">
+                                                                Total Amount
+                                                            </div>
+                                                            <div class="col-6 text-end">
+                                                                6,590,000 IDR
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>

@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/domains', [DomainsController::class, 'index'])->name('user.domains');
     Route::get('user/invoices', [InvoiceController::class, 'index'])->name('user.invoices');
     Route::get('user/tickets', [TicketsController::class, 'index'])->name('user.tickets');
-    Route::get('user/order/summary', [TransactionController::class, 'index']);
+    Route::get('user/order/summary', [TransactionController::class, 'index'])->name('user.order');
     Route::post('user/order/payment', [TransactionController::class, 'payment']);
     // Route::get('user/order/payment', [TransactionController::class, 'paymentDetails'])->name('user.payment');
     Route::get('user/order/invoice', [TransactionController::class, 'invoice'])->name('user.invoice');

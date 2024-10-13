@@ -26,6 +26,7 @@ Route::get('/', [PortalController::class, 'index'])->name('portal.index');
 Route::get('/login', [LoginController::class, 'index'])->name('auth.login');
 Route::post('auth/login/attempt', [LoginController::class, 'login'])->name('auth.login.attempt');
 Route::get('/register', [RegisterController::class, 'index'])->name('auth.register');
+Route::post('/register/attempt', [RegisterController::class, 'register'])->name('auth.register.attempt');
 Route::middleware(['auth'])->group(function () {
     Route::get('user/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
     Route::get('user/services', [ServicesController::class, 'index'])->name('user.services');

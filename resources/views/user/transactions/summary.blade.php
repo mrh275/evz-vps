@@ -42,6 +42,21 @@
                                             </li>
                                         </ul>
                                     </div>
+                                    <div class="my-2 row">
+                                        <div class="col-12">
+                                            <label for="item-duration" id="item-duration">
+                                                <h6>Select duration</h6>
+                                            </label>
+                                            <select name="item-duration" id="item-duration" class="form-select">
+                                                <option value="">Pilih :</option>
+                                                <option value="1">1 bulan</option>
+                                                <option value="3">3 bulan</option>
+                                                <option value="6">6 bulan</option>
+                                                <option value="12" selected>12 bulan</option>
+                                                <option value="24">24 bulan</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="py-4 my-2 row">
                                     <div class="col-12">

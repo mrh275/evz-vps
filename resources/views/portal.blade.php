@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('content')
-    <div class="container">
+    <div class="container pt-5">
         <div class="row">
             <div class="container py-5">
                 <div class="py-5 row flex-lg-row-reverse align-items-center">
@@ -9,8 +9,10 @@
                         <img src="{{ url('assets/img/vps-hero-md.png') }}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy">
                     </div>
                     <div class="col-lg-6">
-                        <h1 class="mb-3 display-5 fw-bold lh-1">Responsive left-aligned hero with image</h1>
-                        <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+                        <h1 class="mb-3 display-5 fw-bold lh-1">Deploy and manage your app with powerfull VPS</h1>
+                        <p class="lead">
+                            Evariz Digital Solusindo provides a powerful VPS with high performance and affordable price. Deploy and manage your app with our VPS. We provide 24/7 support for you. Get started now!
+                        </p>
                         <div class="gap-2 d-grid d-md-flex justify-content-md-start">
                             <button type="button" class="px-4 btn btn-primary btn-lg me-md-2">Getting Started</button>
                             <button type="button" class="px-4 btn btn-outline-secondary btn-lg">View Plans</button>
@@ -20,7 +22,7 @@
             </div>
         </div>
 
-        <div class="py-5 pt-5 row">
+        <div class="pt-5 pb-5 row">
             <h2 class="my-5 text-center fw-bold fs-1">
                 VPS Plans
             </h2>
@@ -51,8 +53,12 @@
                             </li>
                             <li>99% Uptime</li>
                         </ul>
-
-                        <div class="pt-5 row">
+                        <div class="pt-4 row">
+                            <div class="text-center col-12">
+                                <h3 class="text-dark fw-bold">175,000 IDR/month</h3>
+                            </div>
+                        </div>
+                        <div class="pt-3 row">
                             <div class="col-12 d-flex justify-content-center">
                                 <button type="button" class="btn btn-primary btn-lg" id="vps1">Order Now</button>
                             </div>
@@ -87,8 +93,12 @@
                             </li>
                             <li>99% Uptime</li>
                         </ul>
-
-                        <div class="pt-5 row">
+                        <div class="pt-4 row">
+                            <div class="text-center col-12">
+                                <h3 class="text-dark fw-bold">350,000 IDR/month</h3>
+                            </div>
+                        </div>
+                        <div class="pt-3 row">
                             <div class="col-12 d-flex justify-content-center">
                                 <button type="button" class="btn btn-primary btn-lg" id="vps2">Order Now</button>
                             </div>
@@ -123,14 +133,27 @@
                             </li>
                             <li>99% Uptime</li>
                         </ul>
-
-                        <div class="pt-5 row">
+                        <div class="pt-4 row">
+                            <div class="text-center col-12">
+                                <h3 class="text-dark fw-bold">525,000 IDR/month</h3>
+                            </div>
+                        </div>
+                        <div class="pt-3 row">
                             <div class="col-12 d-flex justify-content-center">
                                 <button type="button" class="btn btn-primary btn-lg" id="vps3">Order Now</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="py-4 row">
+            <div class="col-12 col-lg-6" id="footer-left">
+                Evariz Digital Solusindo &copy; {{ date('Y') }}. All rights reserved.
+            </div>
+            <div class="col-12 col-lg-6 text-end" id="footer-right">
+                Made with &hearts; by MRH
             </div>
         </div>
     </div>

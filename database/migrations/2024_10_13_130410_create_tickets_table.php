@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
-            $table->foreignUuid('user_id')->constrained();
+            $table->uuid('id')->primary();
+            $table->string('user_id', 40);
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['open', 'closed']);
+            $table->date('open_date');
             $table->date('expire_date');
             $table->timestamps();
         });

@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('trx_id')->constrained();
+            $table->string('trx_id', 40);
             $table->string('item_name');
+            $table->string('item_desc');
             $table->date('start_date');
             $table->date('expire_date');
             $table->enum('status', ['active', 'inactive', 'expired']);

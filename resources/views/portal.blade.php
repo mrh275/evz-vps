@@ -26,126 +26,48 @@
             <h2 class="my-5 text-center fw-bold fs-1">
                 VPS Plans
             </h2>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-title">
-                        <h3 class="my-4 text-center fw-semibold">VPS Power Max 1</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul class="px-5 mx-4 power-1 text-dark fw-semibold">
-                            <li>
-                                CPU 2 core
-                            </li>
-                            <li>
-                                2 GB RAM
-                            </li>
-                            <li>
-                                50 GB SSD
-                            </li>
-                            <li>
-                                1 TB Bandwidth
-                            </li>
-                            <li>
-                                1 IP Public
-                            </li>
-                            <li>
-                                100 Mbps Uplink
-                            </li>
-                            <li>99% Uptime</li>
-                        </ul>
-                        <div class="pt-4 row">
-                            <div class="text-center col-12">
-                                <h3 class="text-dark fw-bold">175,000 IDR/month</h3>
-                            </div>
+            @foreach ($vpsPlan as $vps)
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-title">
+                            <h3 class="my-4 text-center fw-semibold">{{ $vps->name }}</h3>
                         </div>
-                        <div class="pt-3 row">
-                            <div class="col-12 d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary btn-lg" id="vps1">Order Now</button>
+                        <div class="card-body">
+                            <ul class="px-5 mx-4 power-1 text-dark fw-semibold">
+                                <li>
+                                    {{ $vps->cpu }}
+                                </li>
+                                <li>
+                                    {{ $vps->ram }}
+                                </li>
+                                <li>
+                                    {{ $vps->storage }}
+                                </li>
+                                <li>
+                                    {{ $vps->bandwidth }}
+                                </li>
+                                <li>
+                                    1 IP Public
+                                </li>
+                                <li>
+                                    100 Mbps Uplink
+                                </li>
+                                <li>99% Uptime</li>
+                            </ul>
+                            <div class="pt-4 row">
+                                <div class="text-center col-12">
+                                    <h3 class="text-dark fw-bold">{{ number_format($vps->price, 0, ',', '.') }} IDR/month</h3>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-title">
-                        <h3 class="my-4 text-center fw-semibold">VPS Power Max 2</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul class="px-5 mx-4 power-1 text-dark fw-semibold">
-                            <li>
-                                CPU 4 core
-                            </li>
-                            <li>
-                                4 GB RAM
-                            </li>
-                            <li>
-                                80 GB SSD
-                            </li>
-                            <li>
-                                1 TB Bandwidth
-                            </li>
-                            <li>
-                                1 IP Public
-                            </li>
-                            <li>
-                                100 Mbps Uplink
-                            </li>
-                            <li>99% Uptime</li>
-                        </ul>
-                        <div class="pt-4 row">
-                            <div class="text-center col-12">
-                                <h3 class="text-dark fw-bold">350,000 IDR/month</h3>
-                            </div>
-                        </div>
-                        <div class="pt-3 row">
-                            <div class="col-12 d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary btn-lg" id="vps2">Order Now</button>
+                            <div class="pt-3 row">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary btn-lg" id="vps{{ $vps->id }}">Order Now</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-title">
-                        <h3 class="my-4 text-center fw-semibold">VPS Power Max 3</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul class="px-5 mx-4 power-1 text-dark fw-semibold">
-                            <li>
-                                CPU 6 core
-                            </li>
-                            <li>
-                                8 GB RAM
-                            </li>
-                            <li>
-                                100 GB SSD
-                            </li>
-                            <li>
-                                1 TB Bandwidth
-                            </li>
-                            <li>
-                                1 IP Public
-                            </li>
-                            <li>
-                                100 Mbps Uplink
-                            </li>
-                            <li>99% Uptime</li>
-                        </ul>
-                        <div class="pt-4 row">
-                            <div class="text-center col-12">
-                                <h3 class="text-dark fw-bold">525,000 IDR/month</h3>
-                            </div>
-                        </div>
-                        <div class="pt-3 row">
-                            <div class="col-12 d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary btn-lg" id="vps3">Order Now</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
 
         <div class="py-4 row">
@@ -170,7 +92,7 @@
             if ("{{ session()->has('user') }}" == "") {
                 window.location.href = "{{ route('auth.login') }}";
             } else {
-                window.location.href = "{{ route('user.order') }}";
+                window.location.href = "{{ route('user.order', 1) }}";
             }
         })
 
@@ -179,7 +101,7 @@
             if ("{{ session()->has('user') }}" == "") {
                 window.location.href = "{{ route('auth.login') }}";
             } else {
-                window.location.href = "{{ route('user.order') }}";
+                window.location.href = "{{ route('user.order', 2) }}";
             }
         })
         vps3.addEventListener('click', function() {
@@ -187,7 +109,7 @@
             if ("{{ session()->has('user') }}" == "") {
                 window.location.href = "{{ route('auth.login') }}";
             } else {
-                window.location.href = "{{ route('user.order') }}";
+                window.location.href = "{{ route('user.order', 3) }}";
             }
         })
     </script>

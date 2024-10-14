@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use App\Models\VpsPlans;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TransactionController extends Controller
 {
-    public function index()
+    public function index($vpsId)
     {
         $user = session('user');
+        $vpsPlan = VpsPlans::find($vpsId);
         $data = [
             'title' => 'Ringkasan Order',
             'activeMenu' => '-',
-            'user' => $user
+            'user' => $user,
+            'vpsPlan' => $vpsPlan
         ];
 
         return view('user.transactions.summary', $data);

@@ -32,22 +32,16 @@
                                         <h6>Order Details</h6>
                                         <ul class="list-group fw-semibold">
                                             <li class="list-group-item">
-                                                Renewal VPS Linux Power Max 3 Unmanaged 6 core RAM 8GB SSD 50GB 1Gbps Unlimited Uplink
-                                            </li>
-                                            <li class="list-group-item">
-                                                Renewal Domain sman1rawamerta.sch.id
-                                            </li>
-                                            <li class="list-group-item">
-                                                Comodo Positive SSL (DV)
+                                                Renewal {{ $vpsPlan->name }} Linux Unmanaged {{ $vpsPlan->cpu }} RAM {{ $vpsPlan->ram }} {{ $vpsPlan->storage }} {{ $vpsPlan->bandwidth }} Unlimited Uplink
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="my-2 row">
                                         <div class="col-12">
-                                            <label for="item-duration" id="item-duration">
+                                            <label for="item-duration">
                                                 <h6>Select duration</h6>
                                             </label>
-                                            <select name="item-duration" id="item-duration" class="form-select">
+                                            <select name="item-duration" id="item-duration" class="form-select" onchange="changeDurationPrice(event)">
                                                 <option value="">Pilih :</option>
                                                 <option value="1">1 bulan</option>
                                                 <option value="3">3 bulan</option>
@@ -115,31 +109,11 @@
                                 <div class="mb-2 row small">
                                     <div class="col-7">
                                         <span class="text-dark fw-semibold">
-                                            VPS Power Max 3
+                                            {{ $vpsPlan->name }}
                                         </span>
                                     </div>
                                     <div class="col-5 text-end">
-                                        5,675,676 IDR
-                                    </div>
-                                </div>
-                                <div class="mb-2 row small">
-                                    <div class="col-7">
-                                        <span class="text-dark fw-semibold">
-                                            Domain sman1rawamerta.sch.id
-                                        </span>
-                                    </div>
-                                    <div class="col-5 text-end">
-                                        67,568 IDR
-                                    </div>
-                                </div>
-                                <div class="mb-2 row small">
-                                    <div class="col-7">
-                                        <span class="text-dark fw-semibold">
-                                            SSL
-                                        </span>
-                                    </div>
-                                    <div class="col-5 text-end">
-                                        193,694 IDR
+                                        <span id="vps-amount"></span> IDR
                                     </div>
                                 </div>
                                 <hr>
@@ -148,7 +122,7 @@
                                         Tax's Included (PPN 11%)
                                     </div>
                                     <div class="col-5 text-end">
-                                        653,062 IDR
+                                        <span id="tax-amount"></span> IDR
                                     </div>
                                 </div>
                                 <hr>
@@ -157,7 +131,7 @@
                                         Total Amount
                                     </div>
                                     <div class="col-5 text-end">
-                                        6,590,000 IDR
+                                        <span id="total-amount"></span> IDR
                                     </div>
                                 </div>
                             </div>
@@ -168,3 +142,22 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        const vpsPrice = {{ $vpsPlan->price }};
+        const vpsAmount = document.getElementById('vps-amount');
+        const taxAmount = document.getElementById('tax-amount');
+        const totalAmount = document.getElementById('total-amount');
+        vpsAmount.innerHTML = (vpsPrice * 12).toLocaleString();
+        taxAmount.innerHTML = (vpsPrice * 12 * 0.11).toLocaleString();
+        totalAmount.innerHTML = (vpsPrice * 12 + vpsPrice * 12 * 0.11).toLocaleString();
+
+        function changeDurationPrice(event) {
+            let duration = event.target.value;
+            vpsAmount.innerHTML = (vpsPrice * duration).toLocaleString();
+            taxAmount.innerHTML = (vpsPrice * duration * 0.11).toLocaleString();
+            totalAmount.innerHTML = (vpsPrice * duration + vpsPrice * duration * 0.11).toLocaleString();
+        };
+    </script>
+@endpush

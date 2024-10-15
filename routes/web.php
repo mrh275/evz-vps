@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/tickets', [TicketsController::class, 'index'])->name('user.tickets');
     Route::get('user/order/summary/{vpsId}', [TransactionController::class, 'index'])->name('user.order');
     Route::post('user/order/payment', [TransactionController::class, 'payment']);
-    // Route::get('user/order/payment', [TransactionController::class, 'paymentDetails'])->name('user.payment');
+    Route::get('user/order/payment-details/{trx_id}', [TransactionController::class, 'paymentDetails'])->name('user.paymentDetails');
     Route::get('user/order/invoice', [TransactionController::class, 'invoice'])->name('user.invoice');
     Route::get('user/logout', [LoginController::class, 'logout'])->name('user.logout');
 });

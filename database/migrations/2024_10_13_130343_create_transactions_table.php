@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('user_id', 40);
+            $table->string('trx_id');
             $table->string('merchant_ref');
-            $table->date('order_date');
-            $table->date('due_date');
+            $table->string('va_code');
+            $table->dateTime('order_date');
+            $table->dateTime('due_date');
             $table->enum('status', ['unpaid', 'paid', 'expired']);
+            $table->integer('total_price');
+            $table->integer('item_duration');
+            $table->string('vps_id', 2);
             $table->timestamps();
         });
     }

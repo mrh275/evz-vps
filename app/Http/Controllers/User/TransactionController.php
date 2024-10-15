@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\VpsPlans;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Services;
 use App\Models\Transaction;
 use Carbon\Carbon;
 
@@ -102,12 +103,24 @@ class TransactionController extends Controller
     public function checkPayment($trx_id)
     {
         try {
-            $transaction = Transaction::where('trx_id', $trx_id)->first();
+            $user = User::find(session()->get('user'));
+            $transaction = Transaction::where('trx_id', $trx_id)->with('vpsPlan')->first();
 
             if ($transaction->status == 'paid') {
+                $services = Services::create([
+                    'user_id' => $user[0]->id,
+                    'trx_id' => $transaction->trx_id,
+                    'merchant_ref' => $transaction->merchant_ref,
+                    'item_name' => $transaction->vpsPlan->name,
+                    'item_desc' => $transaction->vpsPlan->name . ' CPU ' . $transaction->vpsPlan->cpu . ' RAM ' . $transaction->vpsPlan->ram . ' Storage ' . $transaction->vpsPlan->storage . ' Bandwidth ' . $transaction->vpsPlan->bandwidth,
+                    'start_date' => Carbon::now(),
+                    'expire_date' => Carbon::now()->addMonths($transaction->item_duration),
+                    'status' => 'active',
+                ]);
                 $data = [
                     'status' => $transaction->status,
                     'message' => 'Pembayaran berhasil diterima',
+                    'services' => $services
                 ];
 
                 return response()->json($data);

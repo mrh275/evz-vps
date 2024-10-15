@@ -62,10 +62,10 @@
                                 <div class="col-1"></div>
                                 <div class="px-2 py-1 col-10" style="background-color: #efefef">
                                     <div class="container">
-                                        <h5 class="text-dark">Invoice #25846/INV/EVZ/X/2024</h5>
-                                        <span class="text-dark">Invoice date: October 11th, 2024</span>
+                                        <h5 class="text-dark">Invoice #{{ $trx->merchant_ref }}</h5>
+                                        <span class="text-dark">Invoice date: {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $trx->order_date)->format('F j, Y, H:i') }} WIB</span>
                                         <br>
-                                        <span class="text-dark">Due date: October 12th, 2024</span>
+                                        <span class="text-dark">Due date: {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $trx->due_date)->format('F j, Y, H:i') }} WIB</span>
                                     </div>
                                 </div>
                                 <div class="col-1"></div>
@@ -97,26 +97,14 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="text-dark fw-semibold">
-                                                        VPS Power Max 3 Unmanaged <br>
+                                                        {{ $trx->vpsPlan->name }} <br>
                                                         Region: Bogor <br>
-                                                        CPU: 6 core <br>
-                                                        RAM: 8 GB <br>
-                                                        Storage: SSD 80 GB <br>
+                                                        CPU: {{ $trx->vpsPlan->cpu }} <br>
+                                                        RAM: {{ $trx->vpsPlan->ram }} <br>
+                                                        Storage: {{ $trx->vpsPlan->storage }} <br>
                                                         Operating System: ubuntu-22.04-x86_64
                                                     </td>
-                                                    <td class="text-end text-dark">215,000 IDR</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-dark fw-semibold">
-                                                        Renewal domain sman1rawamerta.sch.id
-                                                    </td>
-                                                    <td class="text-end text-dark">215,000 IDR</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-dark fw-semibold">
-                                                        Renewal SSl Comodo PositiveSSL
-                                                    </td>
-                                                    <td class="text-end text-dark">215,000 IDR</td>
+                                                    <td class="text-end text-dark">{{ number_format($trx->total_price * 0.11 + $trx->total_price, 0) }} IDR</td>
                                                 </tr>
                                             </tbody>
                                             <tfoot style="background-color: #efefef" class="fw-bold text-end">
@@ -125,7 +113,7 @@
                                                         Total Amount (Tax's Included)
                                                     </td>
                                                     <td class="text-dark">
-                                                        6,590,000 IDR
+                                                        {{ number_format($trx->total_price * 0.11 + $trx->total_price, 0) }} IDR
                                                     </td>
                                                 </tr>
                                             </tfoot>
@@ -148,7 +136,7 @@
                                                         <br>
                                                         <br>
                                                         <span class="text-dark">
-                                                            Bank: BCA <br>
+                                                            Bank: {{ trim($trx->va_code, 'VA') }} Virtual Account<br>
                                                             Account Number: 1234567890 <br>
                                                             Account Name: Evariz Digital Media
                                                         </span>
@@ -159,7 +147,7 @@
                                                                 Sub Amount
                                                             </div>
                                                             <div class="col-6 text-end">
-                                                                5,399,554 IDR
+                                                                {{ number_format($trx->total_price, 0) }} IDR
                                                             </div>
                                                         </div>
                                                         <div class="position-relative row small border-1 border-bottom border-dark" style="top: -35px">
@@ -167,7 +155,7 @@
                                                                 VAT (11%)
                                                             </div>
                                                             <div class="col-6 text-end">
-                                                                590,446 IDR
+                                                                {{ number_format($trx->total_price * 0.11, 0) }} IDR
                                                             </div>
                                                         </div>
                                                         <div class="position-relative row small border-1 border-bottom border-dark" style="top: -35px">
@@ -175,7 +163,7 @@
                                                                 Total Amount
                                                             </div>
                                                             <div class="col-6 text-end">
-                                                                6,590,000 IDR
+                                                                {{ number_format($trx->total_price * 0.11 + $trx->total_price, 0) }} IDR
                                                             </div>
                                                         </div>
                                                     </td>

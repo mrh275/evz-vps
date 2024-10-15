@@ -31,4 +31,14 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /* Tripay Configuration */
+
+    'tripay' => [
+        'api_key' => env('TRIPAY_API_KEY', 'your-api-key'),
+        'private_key' => env('TRIPAY_PRIVATE_KEY', 'your-private-key'),
+        'merchant_code' => env('TRIPAY_MERCHANT_CODE', 'your-merchant-code'),
+        'api_key_test' => env('TEST_API_KEY', 'your-api-key'),
+        'private_key_test' => env('TEST_PRIVATE_KEY', 'your-private-key'),
+        'merchant_code_test' => env('TEST_MERCHANT_CODE', 'your-merchant-code'),
+    ],
 ];

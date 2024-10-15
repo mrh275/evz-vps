@@ -13,4 +13,9 @@ class Transaction extends Model
     protected $guarded = [
         'id',
     ];
+
+    public function vpsPlan()
+    {
+        return $this->belongsTo(VpsPlans::class, 'vps_id', 'id');
+    }
 }

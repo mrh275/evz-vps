@@ -32,30 +32,36 @@
                                 <tr>
                                     <th>Invoice</th>
                                     <th>Items</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
+                                    <th>Invoice Date</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>INV/EVZ/VPS-PMX/X/2024</td>
-                                    <td>VPS Power Max 2</td>
-                                    <td>09 Oktober 2024</td>
-                                    <td>08 Oktober 2025</td>
-                                    <td>
-                                        <span class="badge bg-success">Paid</span>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-secondary icon">
-                                            <i class="fas fa-print"></i>
-                                        </button>
-                                        <button class="btn btn-info icon">
-                                            <i class="fas fa-undo"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                @foreach ($trx as $item)
+                                    <tr>
+                                        <td>{{ $item->merchant_ref }}</td>
+                                        <td>{{ $item->vpsPlan->name }}</td>
+                                        <td>{{ $item->order_date }}</td>
+                                        <td>
+                                            @if ($item->status == 'unpaid')
+                                                <span class="badge bg-warning">Unpaid</span>
+                                            @elseif ($item->status == 'paid')
+                                                <span class="badge bg-success">Paid</span>
+                                            @else
+                                                <span class="badge bg-danger">Exoired</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-secondary icon">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                            <button class="btn btn-info icon">
+                                                <i class="fas fa-undo"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

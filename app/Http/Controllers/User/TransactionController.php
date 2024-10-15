@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\User;
 use App\Models\VpsPlans;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
+use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
@@ -25,28 +28,60 @@ class TransactionController extends Controller
     public function payment(Request $request)
     {
         $user = session('user');
+        $vpsPlan = VpsPlans::find($request->vps_plan);
+        $itemDuration = $request->item_duration;
+        $va_code = $request->va_code;
+        $totalPrice = $vpsPlan->price * $itemDuration;
+        $merchantRef = fake()->unique()->randomNumber(5) . "/VPS1/INV/EVZ/X/" . date("y");
+        $user = User::find(session()->get('user'));
+        $userId = $user[0]->id;
+        $orderDate = date("Y-m-d H:i:s");
+        $dueDate = date("Y-m-d H:i:s", strtotime("+12 hour"));
+        $status = 'unpaid';
+        $trxId = 'TRX' . fake()->unique()->numerify('##########');
+
         $data = [
             'title' => 'Pembayaran',
             'activeMenu' => '-',
-            'va_code' => $request->va_code,
-            'user' => $user
+            'va_code' => $va_code,
+            'user' => $user[0]
         ];
 
-        return view('user.transactions.payment', $data);
+        try {
+            Transaction::create([
+                'user_id' => $userId,
+                'trx_id' => $trxId,
+                'merchant_ref' => $merchantRef,
+                'va_code' => $va_code,
+                'order_date' => $orderDate,
+                'due_date' => $dueDate,
+                'status' => $status,
+                'total_price' => $totalPrice,
+                'item_duration' => $itemDuration,
+                'vps_id' => $vpsPlan->id
+            ]);
+
+            return redirect()->route('user.paymentDetails', $trxId);
+        } catch (\Exception $e) {
+            return back()->with([
+                'error' => true,
+                'message' => 'Terjadi kesalahan, silahkan coba lagi'
+            ]);
+        }
     }
 
     public function paymentDetails($param)
     {
-        $user = session('user');
+        $user = User::find(session()->get('user'));
+        $trx = Transaction::where('trx_id', $param)->with('vpsPlan')->first();
         $data = [
             'title' => 'Detail Pembayaran',
             'activeMenu' => '-',
-            'va_code' => $param->va_code,
-            'user' => $user
+            'user' => $user[0],
+            'trx' => $trx
         ];
 
-        dd($data);
-        return view('user.payment', $data);
+        return view('user.transactions.payment', $data);
     }
 
     public function invoice()
@@ -60,5 +95,17 @@ class TransactionController extends Controller
         ];
 
         return view('user.transactions.print-invoice', $data);
+    }
+
+    public function checkPayment($trx_id)
+    {
+        $transaction = Transaction::find($trx_id);
+        $data = [
+            'title' => 'Cek Pembayaran',
+            'activeMenu' => '-',
+            'transaction' => $transaction
+        ];
+
+        return response()->json($data);
     }
 }

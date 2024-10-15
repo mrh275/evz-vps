@@ -84,14 +84,16 @@ class TransactionController extends Controller
         return view('user.transactions.payment', $data);
     }
 
-    public function invoice()
+    public function invoice($trxId)
     {
-        $user = session('user');
+        $user = User::find(session()->get('user'));
+        $trx = Transaction::where('trx_id', $trxId)->with('vpsPlan')->first();
         $data = [
             'title' => 'Invoice',
             'activeMenu' => '-',
             'paymentStatus' => false,
-            'user' => $user
+            'user' => $user[0],
+            'trx' => $trx
         ];
 
         return view('user.transactions.print-invoice', $data);
@@ -99,13 +101,43 @@ class TransactionController extends Controller
 
     public function checkPayment($trx_id)
     {
-        $transaction = Transaction::find($trx_id);
-        $data = [
-            'title' => 'Cek Pembayaran',
-            'activeMenu' => '-',
-            'transaction' => $transaction
-        ];
+        try {
+            $transaction = Transaction::where('trx_id', $trx_id)->first();
 
-        return response()->json($data);
+            if ($transaction->status == 'paid') {
+                $data = [
+                    'status' => $transaction->status,
+                    'message' => 'Pembayaran berhasil diterima',
+                ];
+
+                return response()->json($data);
+            } else if ($transaction->status == 'unpaid') {
+                $data = [
+                    'status' => $transaction->status,
+                    'message' => 'Pembayaran belum diterima',
+                ];
+
+                return response()->json($data);
+            } else if ($transaction->status == 'expired') {
+                $data = [
+                    'status' => $transaction->status,
+                    'message' => 'Transaksi sudah kadaluarsa! Silahkan buat transaksi baru.',
+                ];
+
+                return response()->json($data);
+            } else {
+                $data = [
+                    'status' => 'error',
+                    'message' => 'Terjadi kesalahan, transaksi tidak ditemukan',
+                ];
+
+                return response()->json($data);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan, silahkan coba lagi'
+            ]);
+        }
     }
 }

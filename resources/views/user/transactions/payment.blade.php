@@ -77,7 +77,7 @@
                                 <div class="my-2 row">
                                     <div class="col-12 d-flex align-items-center justify-content-end">
                                         <span class="mx-2">Download your Invoice here</span>
-                                        <a href="{{ url('user/order/invoice/' . $trx->trx_id) }}" class="btn btn-primary icon icon-left">
+                                        <a href="{{ url('user/order/invoice/' . $trx->trx_id) }}" target="_blank" class="btn btn-primary icon icon-left">
                                             <i class="fas fa-file-pdf"></i>
                                             Invoice
                                         </a>
@@ -162,9 +162,64 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="mt-3 row">
+                            <div class="col-12">
+                                <div class="gap-2 d-grid">
+                                    <button class="btn btn-primary" id="check-payment" type="button">Check Payment Status</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const checkPayment = document.getElementById('check-payment');
+        checkPayment.addEventListener("click", function() {
+            fetch("{{ route('user.checkPayment', $trx->trx_id) }}")
+                .then(response => response.json())
+                .then(data => {
+                    Swal.fire({
+                        title: 'Checking your payment status...',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        }
+                    }).then((dismiss) => {
+                        if (data.status === 'paid') {
+                            Swal.fire({
+                                title: 'Payment Status',
+                                text: 'Pembayaran Anda telah diterima',
+                                icon: 'success',
+                                confirmButtonText: 'Tutup'
+                            }).then((confirm => {
+                                if (confirm) {
+                                    window.location.href = "{{ route('user.dashboard') }}"
+                                }
+                            }))
+                        } else if (data.status === 'unpaid') {
+                            Swal.fire({
+                                title: 'Payment Status',
+                                text: 'Pembayaran Anda belum diterima. Silahkan lakukan pembayaran terlebih dahulu',
+                                icon: 'warning',
+                                confirmButtonText: 'Tutup'
+                            })
+                        } else {
+                            Swal.fire({
+                                title: 'Payment Status',
+                                text: 'Transaksi tidak ditemukan. Silahkan membuat transaksi terlebih dahulu',
+                                icon: 'error',
+                                confirmButtonText: 'Tutup'
+                            })
+                        }
+                    })
+                });
+        });
+    </script>
+@endpush

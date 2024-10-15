@@ -17,9 +17,13 @@ return new class extends Migration
             $table->string('trx_id');
             $table->string('merchant_ref');
             $table->string('va_code');
+            $table->string('payment_code');
             $table->dateTime('order_date');
             $table->dateTime('due_date');
             $table->enum('status', ['unpaid', 'paid', 'expired']);
+            $table->integer('item_price');
+            $table->integer('tax');
+            $table->integer('merchant_fee');
             $table->integer('total_price');
             $table->integer('item_duration');
             $table->string('vps_id', 2);

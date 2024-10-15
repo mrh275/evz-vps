@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Administrator',
-        //     'email' => 'admin@admin.com',
-        //     'password' => Hash::make('password'),
-        // ]);
+        User::factory()->create([
+            'name' => 'Administrator',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('password'),
+        ]);
 
         VpsPlans::factory()->create([
             'name' => 'VPS Power Max 1',

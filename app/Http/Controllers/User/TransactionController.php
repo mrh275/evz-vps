@@ -33,7 +33,7 @@ class TransactionController extends Controller
         $itemDuration = $request->item_duration;
         $va_code = $request->va_code;
         $totalPrice = $vpsPlan->price * $itemDuration;
-        $merchantRef = fake()->unique()->randomNumber(5) . "/VPS1/INV/EVZ/X/" . date("y");
+        $merchantRef = fake()->unique()->randomNumber(5) . "/VPS1/INV/EVZ/X/" . date("Y");
         $user = User::find(session()->get('user'));
         $userId = $user[0]->id;
         $orderDate = date("Y-m-d H:i:s");

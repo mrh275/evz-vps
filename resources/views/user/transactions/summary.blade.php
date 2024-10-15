@@ -60,6 +60,8 @@
                                             <div class="col-12 d-flex justify-content-evenly">
                                                 <form action="{{ url('user/order/payment') }}" method="POST">
                                                     @csrf
+                                                    <input type="hidden" name="vps_plan" value="{{ Request::segment(4) }}">
+                                                    <input type="hidden" name="item_duration" value="12">
                                                     <input type="hidden" name="va_code" value="BRIVA">
                                                     <button type="submit" class="p-1 border card">
                                                         <img src="{{ url('assets/img/bank/BRIVA.png') }}" alt="BRIVA" width="90px">
@@ -68,6 +70,8 @@
                                                 </form>
                                                 <form action="{{ url('user/order/payment') }}" method="POST">
                                                     @csrf
+                                                    <input type="hidden" name="vps_plan" value="{{ Request::segment(4) }}">
+                                                    <input type="hidden" name="item_duration" value="12">
                                                     <input type="hidden" name="va_code" value="MANDIRIVA">
                                                     <button type="submit" class="p-1 border card">
                                                         <img src="{{ url('assets/img/bank/MANDIRIVA.png') }}" alt="MANDIRIVA" width="90px">
@@ -76,6 +80,8 @@
                                                 </form>
                                                 <form action="{{ url('user/order/payment') }}" method="POST">
                                                     @csrf
+                                                    <input type="hidden" name="vps_plan" value="{{ Request::segment(4) }}">
+                                                    <input type="hidden" name="item_duration" value="12">
                                                     <input type="hidden" name="va_code" value="BNIVA">
                                                     <button type="submit" class="p-1 border card">
                                                         <img src="{{ url('assets/img/bank/BNIVA.png') }}" alt="BNIVA" width="90px">
@@ -84,6 +90,8 @@
                                                 </form>
                                                 <form action="{{ url('user/order/payment') }}" method="POST">
                                                     @csrf
+                                                    <input type="hidden" name="vps_plan" value="{{ Request::segment(4) }}">
+                                                    <input type="hidden" name="item_duration" value="12">
                                                     <input type="hidden" name="va_code" value="BCAVA">
                                                     <button type="submit" class="p-1 border card">
                                                         <img src="{{ url('assets/img/bank/BCAVA.png') }}" alt="BCAVA" width="90px">
@@ -149,6 +157,7 @@
         const vpsAmount = document.getElementById('vps-amount');
         const taxAmount = document.getElementById('tax-amount');
         const totalAmount = document.getElementById('total-amount');
+        const itemDurations = document.querySelectorAll('input[name="item_duration"]');
         vpsAmount.innerHTML = (vpsPrice * 12).toLocaleString();
         taxAmount.innerHTML = (vpsPrice * 12 * 0.11).toLocaleString();
         totalAmount.innerHTML = (vpsPrice * 12 + vpsPrice * 12 * 0.11).toLocaleString();
@@ -158,6 +167,9 @@
             vpsAmount.innerHTML = (vpsPrice * duration).toLocaleString();
             taxAmount.innerHTML = (vpsPrice * duration * 0.11).toLocaleString();
             totalAmount.innerHTML = (vpsPrice * duration + vpsPrice * duration * 0.11).toLocaleString();
+            itemDurations.forEach(item => {
+                item.value = duration;
+            });
         };
     </script>
 @endpush

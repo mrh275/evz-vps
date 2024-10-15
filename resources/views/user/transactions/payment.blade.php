@@ -200,7 +200,7 @@
                                 confirmButtonText: 'Tutup'
                             }).then((confirm => {
                                 if (confirm) {
-                                    window.location.href = "{{ route('user.dashboard') }}"
+                                    window.location.href = "{{ route('user.services') }}"
                                 }
                             }))
                         } else if (data.status === 'unpaid') {

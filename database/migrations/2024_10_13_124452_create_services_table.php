@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('user_id', 40);
             $table->string('trx_id', 40);
+            $table->string('merchant_ref');
             $table->string('item_name');
             $table->string('item_desc');
             $table->date('start_date');

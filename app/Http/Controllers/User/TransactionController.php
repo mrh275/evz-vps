@@ -14,13 +14,37 @@ class TransactionController extends Controller
 {
     public function index($vpsId)
     {
+        // Get payment channel
+        $apiKey = config('services.tripay.api_key_test');
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_FRESH_CONNECT  => true,
+            CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/merchant/payment-channel',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER         => false,
+            CURLOPT_HTTPHEADER     => ['Authorization: Bearer ' . $apiKey],
+            CURLOPT_FAILONERROR    => false,
+            CURLOPT_IPRESOLVE      => CURL_IPRESOLVE_V4
+        ));
+
+        $response = curl_exec($curl);
+        $error = curl_error($curl);
+
+        curl_close($curl);
+        $response = json_decode($response)->data;
+        // End get payment channel
+
+
         $user = session('user');
         $vpsPlan = VpsPlans::find($vpsId);
         $data = [
             'title' => 'Ringkasan Order',
             'activeMenu' => '-',
             'user' => $user,
-            'vpsPlan' => $vpsPlan
+            'vpsPlan' => $vpsPlan,
+            'paymentChannels' => $response ? $response : $error
         ];
 
         return view('user.transactions.summary', $data);
@@ -28,41 +52,78 @@ class TransactionController extends Controller
 
     public function payment(Request $request)
     {
-        $user = session('user');
+
         $vpsPlan = VpsPlans::find($request->vps_plan);
         $itemDuration = $request->item_duration;
         $va_code = $request->va_code;
-        $totalPrice = $vpsPlan->price * $itemDuration;
-        $merchantRef = fake()->unique()->randomNumber(5) . "/VPS1/INV/EVZ/X/" . date("Y");
+        $itemPrice = $vpsPlan->price * $itemDuration;
+        $totalPrice = $itemPrice + ($itemPrice * 0.11);
+        $merchantRef = fake()->unique()->randomNumber(5) . "/VPS" . $request->vps_plan . "/INV/EVZ/X/" . date("Y");
         $user = User::find(session()->get('user'));
         $userId = $user[0]->id;
         $orderDate = date("Y-m-d H:i:s");
-        $dueDate = date("Y-m-d H:i:s", strtotime("+12 hour"));
-        $status = 'unpaid';
-        $trxId = 'TRX' . fake()->unique()->numerify('##########');
+
+        $apiKey       = config('services.tripay.api_key_test');
+        $privateKey   = config('services.tripay.private_key_test');
+        $merchantCode = config('services.tripay.merchant_code_test');
 
         $data = [
-            'title' => 'Pembayaran',
-            'activeMenu' => '-',
-            'va_code' => $va_code,
-            'user' => $user[0]
+            'method'         => $va_code,
+            'merchant_ref'   => $merchantRef,
+            'amount'         => $totalPrice,
+            'customer_name'  => $user[0]->name,
+            'customer_email' => $user[0]->email,
+            'customer_phone' => '085155288214',
+            'order_items'    => [
+                [
+                    'name'        => $vpsPlan->name,
+                    'price'       => $totalPrice,
+                    'quantity'    => 1,
+                ],
+            ],
+            'expired_time' => (time() + (48 * 60 * 60)), // 48 jam
+            'signature'    => hash_hmac('sha256', $merchantCode . $merchantRef . $totalPrice, $privateKey)
         ];
 
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_FRESH_CONNECT  => true,
+            CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/transaction/create',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HEADER         => false,
+            CURLOPT_HTTPHEADER     => ['Authorization: Bearer ' . $apiKey],
+            CURLOPT_FAILONERROR    => false,
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => http_build_query($data),
+            CURLOPT_IPRESOLVE      => CURL_IPRESOLVE_V4
+        ]);
+
+        $response = curl_exec($curl);
+        $error = curl_error($curl);
+
+        curl_close($curl);
+
+        $response = json_decode($response)->data;
+        // dd($response);
         try {
-            Transaction::create([
+            $trx = Transaction::create([
                 'user_id' => $userId,
-                'trx_id' => $trxId,
-                'merchant_ref' => $merchantRef,
-                'va_code' => $va_code,
+                'trx_id' => $response->reference,
+                'merchant_ref' => $response->merchant_ref,
+                'va_code' => $response->payment_method,
+                'payment_code' => $response->pay_code,
                 'order_date' => $orderDate,
-                'due_date' => $dueDate,
-                'status' => $status,
-                'total_price' => $totalPrice,
+                'due_date' => date("Y-m-d H:i:s", $response->expired_time),
+                'status' => $response->status,
+                'item_price' => $itemPrice,
+                'tax' => $itemPrice * 0.11,
+                'merchant_fee' => $response->total_fee,
+                'total_price' => $response->amount,
                 'item_duration' => $itemDuration,
                 'vps_id' => $vpsPlan->id
             ]);
-
-            return redirect()->route('user.paymentDetails', $trxId);
+            return redirect()->route('user.paymentDetails', $trx->trx_id);
         } catch (\Exception $e) {
             return back()->with([
                 'error' => true,

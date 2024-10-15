@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="order-last col-12 col-md-6 order-md-1">
                         <h3>
-                            Order ID: 6386273
+                            TRX ID: {{ $trx->trx_id }}
                         </h3>
                     </div>
                     <div class="order-first col-12 col-md-6 order-md-2">

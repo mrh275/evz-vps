@@ -39,40 +39,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>INV/EVZ/VPS-PMX/X/2024</td>
-                                    <td>VPS Power Max 2</td>
-                                    <td>09 Oktober 2024</td>
-                                    <td>08 Oktober 2025</td>
-                                    <td>
-                                        <span class="badge bg-success">Active</span>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-secondary icon">
-                                            <i class="fas fa-print"></i>
-                                        </button>
-                                        <button class="btn btn-info icon">
-                                            <i class="fas fa-undo"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>INV/EVZ/VPS-PMX/X/2024</td>
-                                    <td>VPS Power Max 2</td>
-                                    <td>09 Oktober 2024</td>
-                                    <td>08 Oktober 2025</td>
-                                    <td>
-                                        <span class="badge bg-danger">Expired</span>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-secondary icon">
-                                            <i class="fas fa-print"></i>
-                                        </button>
-                                        <button class="btn btn-info icon">
-                                            <i class="fas fa-undo"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                @foreach ($services as $item)
+                                    <tr>
+                                        <td>{{ $item->merchant_ref }}</td>
+                                        <td>{{ $item->item_name }}</td>
+                                        <td>{{ $item->start_date }}</td>
+                                        <td>{{ $item->expire_date }}</td>
+                                        <td>
+                                            @if ($item->status == 'active')
+                                                <span class="badge bg-success">Active</span>
+                                            @elseif ($item->status == 'inactive')
+                                                <span class="badge bg-secondary">Inactive</span>
+                                            @else
+                                                <span class="badge bg-danger">Expired</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('user.invoice', $item->trx_id) }}" class="btn btn-secondary icon" target="_blank">
+                                                <i class="fas fa-print"></i>
+                                            </a>
+                                            <button class="btn btn-info icon">
+                                                <i class="fas fa-undo"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

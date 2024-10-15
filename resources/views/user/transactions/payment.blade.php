@@ -15,7 +15,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">User</a></li>
                                 <li class="breadcrumb-item">Orders</li>
-                                <li class="breadcrumb-item active" aria-current="page">Payment</li>
+                                <li class="breadcrumb-item active" aria-current="page">Payment Details</li>
                             </ol>
                         </nav>
                     </div>
@@ -32,28 +32,10 @@
                                         <h6>Payment Details</h6>
                                         <div class="row">
                                             <div class="col-7">
-                                                Renewal VPS Linux Power Max 3
+                                                Renewal {{ $trx->vpsPlan->name }}
                                             </div>
                                             <div class="col-5 text-end">
-                                                5,675,676 IDR
-                                            </div>
-                                        </div>
-                                        <hr class="mx-0 my-1">
-                                        <div class="row">
-                                            <div class="col-7">
-                                                Renewal Domain sman1rawamerta.sch.id
-                                            </div>
-                                            <div class="col-5 text-end">
-                                                67,568 IDR
-                                            </div>
-                                        </div>
-                                        <hr class="mx-0 my-1">
-                                        <div class="row">
-                                            <div class="col-7">
-                                                Comodo Positive SSL (DV)
-                                            </div>
-                                            <div class="col-5 text-end">
-                                                193,694 IDR
+                                                {{ number_format($trx->total_price, 0) }} IDR
                                             </div>
                                         </div>
                                         <hr class="mx-0 mt-1 mb-2">
@@ -62,7 +44,7 @@
                                                 Tax's Included (PPN 11%)
                                             </div>
                                             <div class="col-5 text-end">
-                                                653,062 IDR
+                                                {{ number_format($trx->total_price * 0.11, 0) }} IDR
                                             </div>
                                         </div>
                                         <hr class="mx-0 my-2">
@@ -71,7 +53,7 @@
                                                 Total Amounts
                                             </div>
                                             <div class="col-5 text-end">
-                                                6,590,000 IDR
+                                                {{ number_format($trx->total_price + $trx->total_price * 0.11, 0) }} IDR
                                             </div>
                                         </div>
                                     </div>
@@ -82,12 +64,12 @@
                                         <div class="row">
                                             <div class="col-3 d-flex justify-content-center align-items-center">
                                                 <div class="p-1 text-center border card">
-                                                    <img src="{{ url('assets/img/bank/BRIVA.png') }}" alt="BRIVA" width="90px">
+                                                    <img src="{{ url('assets/img/bank/' . $trx->va_code . '.png') }}" alt="{{ $trx->va_code }}" width="90px">
                                                 </div>
                                             </div>
                                             <div class="col-9 d-flex flex-column justify-content-start">
                                                 <p>VA Number: 8800 1234 5678 9012</p>
-                                                <p>Valid until October 10th, 2024 22:37 GMT+7</p>
+                                                <p>Valid until {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $trx->due_date)->format('F j, Y, H:i') }} WIB</p>
                                             </div>
                                         </div>
                                     </div>
@@ -95,7 +77,7 @@
                                 <div class="my-2 row">
                                     <div class="col-12 d-flex align-items-center justify-content-end">
                                         <span class="mx-2">Download your Invoice here</span>
-                                        <a href="{{ url('user/order/invoice') }}" class="btn btn-primary icon icon-left">
+                                        <a href="{{ url('user/order/invoice/' . $trx->trx_id) }}" class="btn btn-primary icon icon-left">
                                             <i class="fas fa-file-pdf"></i>
                                             Invoice
                                         </a>

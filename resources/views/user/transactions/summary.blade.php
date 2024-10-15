@@ -58,46 +58,18 @@
                                         <p>Choose your payment method</p>
                                         <div class="row">
                                             <div class="col-12 d-flex justify-content-evenly">
-                                                <form action="{{ url('user/order/payment') }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="vps_plan" value="{{ Request::segment(4) }}">
-                                                    <input type="hidden" name="item_duration" value="12">
-                                                    <input type="hidden" name="va_code" value="BRIVA">
-                                                    <button type="submit" class="p-1 border card">
-                                                        <img src="{{ url('assets/img/bank/BRIVA.png') }}" alt="BRIVA" width="90px">
-                                                        <span class="small">BRI Virtual Account</span>
-                                                    </button>
-                                                </form>
-                                                <form action="{{ url('user/order/payment') }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="vps_plan" value="{{ Request::segment(4) }}">
-                                                    <input type="hidden" name="item_duration" value="12">
-                                                    <input type="hidden" name="va_code" value="MANDIRIVA">
-                                                    <button type="submit" class="p-1 border card">
-                                                        <img src="{{ url('assets/img/bank/MANDIRIVA.png') }}" alt="MANDIRIVA" width="90px">
-                                                        <span class="small">Mandiri Virtual Account</span>
-                                                    </button>
-                                                </form>
-                                                <form action="{{ url('user/order/payment') }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="vps_plan" value="{{ Request::segment(4) }}">
-                                                    <input type="hidden" name="item_duration" value="12">
-                                                    <input type="hidden" name="va_code" value="BNIVA">
-                                                    <button type="submit" class="p-1 border card">
-                                                        <img src="{{ url('assets/img/bank/BNIVA.png') }}" alt="BNIVA" width="90px">
-                                                        <span class="small">BNI Virtual Account</span>
-                                                    </button>
-                                                </form>
-                                                <form action="{{ url('user/order/payment') }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="vps_plan" value="{{ Request::segment(4) }}">
-                                                    <input type="hidden" name="item_duration" value="12">
-                                                    <input type="hidden" name="va_code" value="BCAVA">
-                                                    <button type="submit" class="p-1 border card">
-                                                        <img src="{{ url('assets/img/bank/BCAVA.png') }}" alt="BCAVA" width="90px">
-                                                        <span class="small">BCA Virtual Account</span>
-                                                    </button>
-                                                </form>
+                                                @foreach ($paymentChannels as $channel)
+                                                    <form action="{{ url('user/order/payment') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="vps_plan" value="{{ Request::segment(4) }}">
+                                                        <input type="hidden" name="item_duration" value="12">
+                                                        <input type="hidden" name="va_code" value="{{ $channel->code }}">
+                                                        <button type="submit" class="p-1 border card">
+                                                            <img src="{{ url('assets/img/bank/' . $channel->code . '.png') }}" alt="{{ $channel->code }}" width="90px">
+                                                            <span class="small">{{ $channel->name }}</span>
+                                                        </button>
+                                                    </form>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>

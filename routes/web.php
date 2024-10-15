@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/order/summary/{vpsId}', [TransactionController::class, 'index'])->name('user.order');
     Route::post('user/order/payment', [TransactionController::class, 'payment']);
     Route::get('user/order/payment-details/{trx_id}', [TransactionController::class, 'paymentDetails'])->name('user.paymentDetails');
-    Route::get('user/order/invoice', [TransactionController::class, 'invoice'])->name('user.invoice');
+    Route::get('user/order/invoice/{trx_id}', [TransactionController::class, 'invoice'])->name('user.invoice');
+    Route::get('user/order/check-payment/{trx_id}', [TransactionController::class, 'checkPayment'])->name('user.checkPayment');
     Route::get('user/logout', [LoginController::class, 'logout'])->name('user.logout');
 });

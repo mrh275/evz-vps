@@ -35,7 +35,7 @@
                                                 Renewal {{ $trx->vpsPlan->name }}
                                             </div>
                                             <div class="col-5 text-end">
-                                                {{ number_format($trx->total_price, 0) }} IDR
+                                                {{ number_format($trx->item_price, 0) }} IDR
                                             </div>
                                         </div>
                                         <hr class="mx-0 mt-1 mb-2">
@@ -44,7 +44,16 @@
                                                 Tax's Included (PPN 11%)
                                             </div>
                                             <div class="col-5 text-end">
-                                                {{ number_format($trx->total_price * 0.11, 0) }} IDR
+                                                {{ number_format($trx->tax, 0) }} IDR
+                                            </div>
+                                        </div>
+                                        <hr class="mx-0 mt-1 mb-2">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                Bank Fee
+                                            </div>
+                                            <div class="col-5 text-end">
+                                                {{ number_format($trx->merchant_fee, 0) }} IDR
                                             </div>
                                         </div>
                                         <hr class="mx-0 my-2">
@@ -53,7 +62,7 @@
                                                 Total Amounts
                                             </div>
                                             <div class="col-5 text-end">
-                                                {{ number_format($trx->total_price + $trx->total_price * 0.11, 0) }} IDR
+                                                {{ number_format($trx->total_price, 0) }} IDR
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +77,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-9 d-flex flex-column justify-content-start">
-                                                <p>VA Number: 8800 1234 5678 9012</p>
+                                                <p>VA Number: {{ $trx->payment_code }}</p>
                                                 <p>Valid until {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $trx->due_date)->format('F j, Y, H:i') }} WIB</p>
                                             </div>
                                         </div>
@@ -106,8 +115,8 @@
                                                     <li>Open your Mobile Banking app</li>
                                                     <li>Select Payment/Transfer</li>
                                                     <li>Select Virtual Account</li>
-                                                    <li>Input your payment VA <strong>8800123456789012</strong></li>
-                                                    <li>If the amount is not automatically filled, fill it manually 6,590,000</li>
+                                                    <li>Input your payment VA <strong>{{ $trx->payment_code }}</strong></li>
+                                                    <li>If the amount is not automatically filled, fill it manually {{ number_format($trx->total_price, 0) }}</li>
                                                     <li>Confirm your payment</li>
                                                     <li>Fill your Mobile Banking PIN</li>
                                                     <li>Transaction Completed</li>
@@ -128,8 +137,8 @@
                                                     <li>Open your Internet Banking app</li>
                                                     <li>Select Payment/Transfer</li>
                                                     <li>Select Virtual Account</li>
-                                                    <li>Input your payment VA <strong>8800123456789012</strong></li>
-                                                    <li>If the amount is not automatically filled, fill it manually 6,590,000</li>
+                                                    <li>Input your payment VA <strong>{{ $trx->payment_code }}</strong></li>
+                                                    <li>If the amount is not automatically filled, fill it manually {{ number_format($trx->total_price, 0) }}</li>
                                                     <li>Confirm your payment</li>
                                                     <li>Fill your Mobile Banking PIN/PASS Code</li>
                                                     <li>Transaction Completed</li>
@@ -150,8 +159,8 @@
                                                     <li>Insert your ATM card</li>
                                                     <li>Select Payment/Transfer</li>
                                                     <li>Select Virtual Account</li>
-                                                    <li>Input your payment VA <strong>8800123456789012</strong></li>
-                                                    <li>If the amount is not automatically filled, fill it manually 6,590,000</li>
+                                                    <li>Input your payment VA <strong>{{ $trx->payment_code }}</strong></li>
+                                                    <li>If the amount is not automatically filled, fill it manually {{ number_format($trx->total_price, 0) }}</li>
                                                     <li>Confirm your payment</li>
                                                     <li>Fill your ATM Card PIN</li>
                                                     <li>Transaction Completed</li>

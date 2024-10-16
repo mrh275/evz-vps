@@ -31,7 +31,7 @@ Route::post('/register/attempt', [RegisterController::class, 'register'])->name(
 Route::middleware(['auth'])->group(function () {
     Route::get('user/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
     Route::get('user/services', [ServicesController::class, 'index'])->name('user.services');
-    Route::get('user/domains', [DomainsController::class, 'index'])->name('user.domains');
+    // Route::get('user/domains', [DomainsController::class, 'index'])->name('user.domains');
     Route::get('user/invoices', [InvoiceController::class, 'index'])->name('user.invoices');
     Route::get('user/tickets', [TicketsController::class, 'index'])->name('user.tickets');
     Route::get('user/order/summary/{vpsId}', [TransactionController::class, 'index'])->name('user.order');
@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/order/payment-details/{trx}', [TransactionController::class, 'paymentDetails'])->name('user.paymentDetails');
     Route::get('user/order/invoice/{trx_id}', [TransactionController::class, 'invoice'])->name('user.invoice');
     Route::get('user/order/check-payment/{trx_id}', [TransactionController::class, 'checkPayment'])->name('user.checkPayment');
+    Route::get('user/ticket/create', [TicketsController::class, 'createTicket'])->name('user.issueTicket');
+    Route::post('user/ticket/simpan', [TicketsController::class, 'store'])->name('user.ticket.store');
     Route::get('user/logout', [LoginController::class, 'logout'])->name('user.logout');
 });
 

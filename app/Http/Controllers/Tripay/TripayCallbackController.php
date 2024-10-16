@@ -42,20 +42,18 @@ class TripayCallbackController extends Controller
             ]);
         }
 
-        $merchant_ref = $data->merchant_ref;
         $tripayReference = $data->reference;
         $status = strtoupper((string) $data->status);
 
         if ($data->is_closed_payment === 1) {
-            $invoice = Transaction::where('merchant_ref', $merchant_ref)
-                ->where('trx_id', $tripayReference)
+            $invoice = Transaction::where('trx_id', $tripayReference)
                 ->where('status', '=', 'UNPAID')
                 ->first();
 
             if (! $invoice) {
                 return Response::json([
                     'success' => false,
-                    'message' => 'No invoice found or already paid: ' . $merchant_ref,
+                    'message' => 'No invoice found or already paid: ' . $tripayReference,
                 ]);
             }
 

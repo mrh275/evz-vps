@@ -57,13 +57,23 @@
 
 @push('scripts')
     <script>
-        if ({{ session()->has('error') }} === 1) {
-            Swal.fire({
-                title: 'Login failed!',
-                text: "{{ session()->get('message') }}",
-                icon: 'danger',
-                confirmButtonText: 'Close'
-            })
-        }
+        const showPassword = document.getElementById('show-password');
+        const passwordField = document.querySelector('input[name="password"]');
+        showPassword.addEventListener('change', function() {
+            if (showPassword.checked) {
+                passwordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+            }
+        });
+
+        // if ({{ session()->has('error') }} === 1) {
+        //     Swal.fire({
+        //         title: 'Login failed!',
+        //         text: "{{ session()->get('message') }}",
+        //         icon: 'danger',
+        //         confirmButtonText: 'Close'
+        //     })
+        // }
     </script>
 @endpush

@@ -104,16 +104,16 @@
                                                         Storage: {{ $trx->vpsPlan->storage }} <br>
                                                         Operating System: ubuntu-22.04-x86_64
                                                     </td>
-                                                    <td class="text-end text-dark">{{ number_format($trx->total_price * 0.11 + $trx->total_price, 0) }} IDR</td>
+                                                    <td class="text-end text-dark">{{ number_format($trx->item_price, 0) }} IDR</td>
                                                 </tr>
                                             </tbody>
                                             <tfoot style="background-color: #efefef" class="fw-bold text-end">
                                                 <tr>
                                                     <td class="text-dark">
-                                                        Total Amount (Tax's Included)
+                                                        Amount
                                                     </td>
                                                     <td class="text-dark">
-                                                        {{ number_format($trx->total_price * 0.11 + $trx->total_price, 0) }} IDR
+                                                        {{ number_format($trx->item_price, 0) }} IDR
                                                     </td>
                                                 </tr>
                                             </tfoot>
@@ -137,7 +137,7 @@
                                                         <br>
                                                         <span class="text-dark">
                                                             Bank: {{ trim($trx->va_code, 'VA') }} Virtual Account<br>
-                                                            Account Number: 1234567890 <br>
+                                                            Account Number: {{ $trx->payment_code }} <br>
                                                             Account Name: Evariz Digital Media
                                                         </span>
                                                     </td>
@@ -147,7 +147,7 @@
                                                                 Sub Amount
                                                             </div>
                                                             <div class="col-6 text-end">
-                                                                {{ number_format($trx->total_price, 0) }} IDR
+                                                                {{ number_format($trx->item_price, 0) }} IDR
                                                             </div>
                                                         </div>
                                                         <div class="position-relative row small border-1 border-bottom border-dark" style="top: -35px">
@@ -155,7 +155,7 @@
                                                                 VAT (11%)
                                                             </div>
                                                             <div class="col-6 text-end">
-                                                                {{ number_format($trx->total_price * 0.11, 0) }} IDR
+                                                                {{ number_format($trx->tax * 0.11, 0) }} IDR
                                                             </div>
                                                         </div>
                                                         <div class="position-relative row small border-1 border-bottom border-dark" style="top: -35px">
@@ -163,7 +163,7 @@
                                                                 Total Amount
                                                             </div>
                                                             <div class="col-6 text-end">
-                                                                {{ number_format($trx->total_price * 0.11 + $trx->total_price, 0) }} IDR
+                                                                {{ number_format($trx->total_price, 0) }} IDR
                                                             </div>
                                                         </div>
                                                     </td>

@@ -21,17 +21,18 @@
             </div>
             <section class="section">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between">
                         <h5 class="card-title">
                             Daftar Tiket
                         </h5>
+                        <a href="{{ route('user.issueTicket') }}" class="btn btn-primary">Buat Ticket</a>
                     </div>
                     <div class="card-body">
                         <table class="table table-striped" id="table1">
                             <thead>
                                 <tr>
                                     <th>Tickets Code</th>
-                                    <th>Items</th>
+                                    <th>Ticket Title</th>
                                     <th>Issued Date</th>
                                     <th>End Date</th>
                                     <th>Status</th>
@@ -39,40 +40,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>TCK/0123/EVZ/X/2024</td>
-                                    <td>VPS Power Max 2</td>
-                                    <td>09 Oktober 2024</td>
-                                    <td>Still Open</td>
-                                    <td>
-                                        <span class="badge bg-danger">Open</span>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-secondary icon">
-                                            <i class="fas fa-print"></i>
-                                        </button>
-                                        <button class="btn btn-info icon">
-                                            <i class="fas fa-undo"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>TCK/0123/EVZ/X/2024</td>
-                                    <td>Domain sman1rawamerta.myid</td>
-                                    <td>10 Oktober 2024</td>
-                                    <td>13 Oktober 2024</td>
-                                    <td>
-                                        <span class="badge bg-secondary">Closed</span>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-secondary icon">
-                                            <i class="fas fa-print"></i>
-                                        </button>
-                                        <button class="btn btn-info icon">
-                                            <i class="fas fa-undo"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                @foreach ($tickets as $ticket)
+                                    <tr>
+                                        <td>{{ $ticket->ticket_code }}</td>
+                                        <td>{{ $ticket->title }}</td>
+                                        <td>{{ $ticket->open_date }}</td>
+                                        <td>{{ $ticket->close_date == null ? $ticket->close_date : 'Still Open' }}</td>
+                                        <td>
+                                            <span class="badge bg-primary">{{ ucwords($ticket->status) }}</span>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-secondary icon">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                            <button class="btn btn-info icon">
+                                                <i class="fas fa-undo"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -48,12 +48,12 @@
                         <span>Services</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ $activeMenu == 'domains' ? 'active' : '' }}">
+                {{-- <li class="sidebar-item {{ $activeMenu == 'domains' ? 'active' : '' }}">
                     <a href="{{ url('user/domains') }}" class='sidebar-link'>
                         <i class="bi bi-globe2"></i>
                         <span>Domains</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item {{ $activeMenu == 'invoices' ? 'active' : '' }}">
                     <a href="{{ url('user/invoices') }}" class='sidebar-link'>
                         <i class="bi bi-receipt"></i>

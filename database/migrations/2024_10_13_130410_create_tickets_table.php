@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('user_id', 40);
+            $table->string('ticket_code');
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['open', 'closed']);
             $table->date('open_date');
-            $table->date('expire_date');
+            $table->date('close_date')->nullable();
             $table->timestamps();
         });
     }
